@@ -1,12 +1,15 @@
 // Business Logic for AddressBook ---------
 function AddressBook() {
   this.contacts = {};
+  this.address = {};
   this.currentId = 0;
 }
 
-AddressBook.prototype.addContact = function(contact) {
+AddressBook.prototype.addContact = function(contact, address) {
   contact.id = this.assignId();
+  address.id = contact.id;
   this.contacts[contact.id] = contact;
+  this.address[address.id] = address;
 }
 
 AddressBook.prototype.assignId = function() {
@@ -17,6 +20,13 @@ AddressBook.prototype.assignId = function() {
 AddressBook.prototype.findContact = function(id) {
   if (this.contacts[id] != undefined) {
     return this.contacts[id];
+  }
+  return false;
+}
+
+AddressBook.prototype.findAddress = function(id) {
+  if (this.address[id] != undefined) {
+    return this.address[id];
   }
   return false;
 }
@@ -37,15 +47,11 @@ function Address(street, city, state, zip) {
 }
 
 // Business Logic for Contacts ---------
-function Contact(firstName, lastName, phoneNumber,emailAddress, street, city, state, zip) {
+function Contact(firstName, lastName, phoneNumber,emailAddress,) {
   this.firstName = firstName;
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
   this.emailAddress = emailAddress;
-  this.street = street;
-  this.city = city;
-  this.state = state;
-  this.zip = zip;
 }
 
 Contact.prototype.fullName = function() {
@@ -67,20 +73,20 @@ function displayContactDetails(addressBookToDisplay) {
  
 function showContact(contactId) {
   const contact = addressBook.findContact(contactId);
+  const address = addressBook.findAddress(contactId);
   $("#show-contact").show();
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
   $(".email-address").html(contact.emailAddress);
-  $(".street").html(contact.street);
-  $(".city").html(contact.city);
-  $(".state").html(contact.state);
-  $(".zip").html(contact.emailAddress);
+  $(".street").html(address.street);
+  $(".city").html(address.city);
+  $(".state").html(address.state);
+  $(".zip").html(address.zip);
   let buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" + + contact.id + ">Delete</button>");
 }
-
 
 function attachContactListeners() {
   $("ul#contacts").on("click", "li", function() {
@@ -91,7 +97,6 @@ function attachContactListeners() {
     $("#show-contact").hide();
     displayContactDetails(addressBook);
   });
-  
 };
 
 $(document).ready(function() {
@@ -116,7 +121,7 @@ $(document).ready(function() {
     $("input#new-zip").val("");
     let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber,inputtedEmailAddress);
     let newAddress = new Address(inputtedStreet, inputtedCity, inputtedState, inputtedZip);
-    addressBook.addContact(newContact);
+    addressBook.addContact(newContact, newAddress);
     displayContactDetails(addressBook);
   });
 });
