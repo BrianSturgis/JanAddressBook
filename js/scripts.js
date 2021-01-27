@@ -83,16 +83,19 @@ function showContact(contactId) {
   $(".city").html(address.city);
   $(".state").html(address.state);
   $(".zip").html(address.zip);
-  let buttons = $("#buttons");
-  buttons.empty();
-  buttons.append("<button class='deleteButton' id=" + + contact.id + ">Delete</button>");
+  let buttonDelete = $("#button-delete");
+  let buttonAddress = $("#button-add-address");
+  buttonDelete.empty();
+  buttonAddress.empty();
+  buttonDelete.append("<button class='deleteButton' id=" + contact.id + ">Delete</button>");
+  buttonAddress.append("<button class='addAddress' id=" + contact.id + ">Add Address</button>");
 }
 
 function attachContactListeners() {
   $("ul#contacts").on("click", "li", function() {
     showContact(this.id);
   });
-  $("#buttons").on("click", ".deleteButton", function() {
+  $("#button-delete").on("click", ".deleteButton", function() {
     addressBook.deleteContact(this.id);
     $("#show-contact").hide();
     displayContactDetails(addressBook);
