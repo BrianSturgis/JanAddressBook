@@ -87,8 +87,8 @@ function showContact(contactId) {
   let buttonAddress = $("#button-add-address");
   buttonDelete.empty();
   buttonAddress.empty();
-  buttonDelete.append("<button class='deleteButton' id=" + contact.id + ">Delete</button>");
-  buttonAddress.append("<button class='addAddress' id=" + contact.id + ">Add Address</button>");
+  buttonDelete.append("<button class='deleteButton nes-btn is-error' id=" + contact.id + ">Delete</button>");
+  buttonAddress.append("<button class='addAddress nes-btn is-error' id=" + contact.id + ">Add Address</button>");
 }
 
 function attachContactListeners() {
