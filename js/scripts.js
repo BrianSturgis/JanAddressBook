@@ -88,7 +88,7 @@ function showContact(contactId) {
   buttonDelete.empty();
   buttonAddress.empty();
   buttonDelete.append("<button class='deleteButton nes-btn is-error' id=" + contact.id + ">Delete</button>");
-  buttonAddress.append("<button class='addAddress nes-btn is-error' id=" + contact.id + ">Add Address</button>");
+  buttonAddress.append("<button class='addAddress nes-btn is-success' id=" + contact.id + ">Add Address</button>");
 }
 
 function attachContactListeners() {
